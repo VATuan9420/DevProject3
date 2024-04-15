@@ -17,6 +17,11 @@ spec:
       containers:
       - image: vatuan9420/udagram-api-feed
         name: udagram-api-feed
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
         env:
           - name: POSTGRES_USERNAME
             valueFrom:
