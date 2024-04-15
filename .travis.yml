@@ -1,3 +1,7 @@
+language: node_js
+node_js:
+  - 14
+
 services:
   - docker
 
@@ -7,14 +11,21 @@ env:
   IMG_API_FEED: udagram-api-feed
   IMG_REVERSEPROXY: reverseproxy
 
-build_images:
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+before_script:
+  - echo "no tests"
+
+script:
   - docker build -t $IMG_FRONTEND udagram-frontend/
   - docker build -t $IMG_API_USER udagram-api-user/
   - docker build -t $IMG_API_FEED udagram-api-feed/
   - docker build -t $IMG_REVERSEPROXY udagram-reverseproxy/
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
-push_images:
+after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   # Tag images
   - docker tag $IMG_FRONTEND $DOCKER_USER/$IMG_FRONTEND
@@ -26,3 +37,4 @@ push_images:
   - docker push $DOCKER_USER/$IMG_API_USER
   - docker push $DOCKER_USER/$IMG_API_FEED
   - docker push $DOCKER_USER/$IMG_REVERSEPROXY
+  - echo "Pushed all images success!!!"
