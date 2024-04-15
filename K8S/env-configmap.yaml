@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  postgres-username: postgres
+  postgres-host: database-1.csuqoreyhedj.us-east-1.rds.amazonaws.com
+  postgres-db: postgres
+  aws-bucket: udacity-p3-20240413
+  aws-region: us-east-1
+  aws-profile: default
+  url: "http://localhost:8100"
+
+kind: ConfigMap
+metadata:
+  name: env-configmap

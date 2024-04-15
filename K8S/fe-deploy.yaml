@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fe-deploy
+  name: fe-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fe-deploy
+  template:
+    metadata:
+      labels:
+        app: fe-deploy
+    spec:
+      containers:
+      - image: vatuan9420/udagram-frontend
+        name: udagram-frontend

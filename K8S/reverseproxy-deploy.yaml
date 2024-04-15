@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: reverseproxy-deploy
+  name: reverseproxy-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reverseproxy-deploy
+  template:
+    metadata:
+      labels:
+        app: reverseproxy-deploy
+    spec:
+      containers:
+      - image: vatuan9420/reverseproxy
+        name: reverseproxy

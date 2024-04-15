@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-user-deploy
+  name: api-user-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-user-deploy
+  template:
+    metadata:
+      labels:
+        app: api-user-deploy
+    spec:
+      containers:
+      - image: vatuan9420/udagram-api-user
+        name: udagram-api-user
+        env:
+          - name: POSTGRES_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: postgres-username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: env-secret
+                key: postgres-password
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: postgres-host
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: postgres-db
+          - name: AWS_BUCKET
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: aws-bucket
+          - name: AWS_REGION
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: aws-region
+          - name: AWS_PROFILE
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: aws-profile
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: env-secret
+                key: jwt
+          - name: URL
+            valueFrom:
+              configMapKeyRef:
+                name: env-configmap
+                key: url
