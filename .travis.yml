@@ -1,11 +1,10 @@
 language: node_js
-node_js:
-  - 14
 
 services:
   - docker
 
 build_images:
+  - docker compose version
   - docker compose -f docker-compose-build.yaml build --parallel
 
 # Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
